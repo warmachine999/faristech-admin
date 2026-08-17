@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FarisTech — Build • Design • Invent</title>
+<meta name="description" content="FarisTech — 3D design, PCB design, electronics, robotics and 3D printing.">
+<style>
+:root{
+  --bg:#06070c;--panel:#10121b;--panel2:#151827;--text:#f8f8ff;--muted:#a6a9b8;--line:rgba(255,255,255,.11);
+  --purple:#9357ff;--cyan:#2be7ff;--pink:#ff4fbd;--orange:#ff9c2c;--green:#22e59a;--red:#ff5261;--yellow:#ffd34e;
+}
+html[data-theme=light]{--bg:#f4f6fb;--panel:#fff;--panel2:#eef1f8;--text:#11131a;--muted:#656b79;--line:rgba(10,20,30,.12)}
+html[data-theme=caramel]{--bg:#24160d;--panel:#392312;--panel2:#452a15;--text:#fff8ed;--muted:#d2bda5;--line:rgba(255,225,190,.13);--purple:#ff8a26;--cyan:#7bddff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:
+radial-gradient(circle at 75% 5%,rgba(147,87,255,.18),transparent 26%),
+radial-gradient(circle at 8% 45%,rgba(43,231,255,.07),transparent 24%),var(--bg);color:var(--text);line-height:1.55}
+body:before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background-image:
+linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+background-size:58px 58px;mask-image:linear-gradient(to bottom,#000,transparent 80%)}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit}
+.wrap{width:min(1450px,90vw);margin:auto}
+.header{position:sticky;top:0;z-index:100;min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:18px;
+background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900}.logoMark{width:40px;height:40px;display:block}.brand b{letter-spacing:1px}.brand b em{color:var(--orange);font-style:normal}.tagline{display:block;color:var(--muted);font-size:.58rem;font-weight:700;letter-spacing:.7px}
+.nav{display:flex;gap:24px;align-items:center;font-size:.9rem;font-weight:700}.nav a{color:var(--muted);padding:10px 0;position:relative}.nav a:hover,.nav a.active{color:var(--text)}
+.nav a.active:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--cyan));border-radius:2px}
+.controls{display:flex;gap:7px;align-items:center}.control{border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--panel);color:var(--text)}
+.menu{display:none;border:0;background:none}.menu span{display:block;width:24px;height:2px;background:var(--text);margin:5px}
+
+.hero{min-height:calc(100vh - 74px);display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:24px;padding:60px 0 85px}
+.eyebrow{font-size:.72rem;font-weight:900;letter-spacing:1.9px;color:var(--purple)}.hero h1{font-size:clamp(4rem,7vw,7.1rem);letter-spacing:-5px;line-height:.9;margin:14px 0 24px}
+.gradient{background:linear-gradient(90deg,var(--purple),var(--pink),var(--cyan),var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:690px;color:var(--muted);font-size:1.07rem}.actions{display:flex;gap:11px;flex-wrap:wrap;margin:29px 0}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);border-radius:11px;padding:12px 18px;background:rgba(255,255,255,.03);font-weight:900;transition:.2s}
+.btn:hover{transform:translateY(-3px)}.primary{background:linear-gradient(135deg,#6b35ff,var(--purple));box-shadow:0 15px 40px rgba(110,53,255,.28)}
+.banners{display:flex;flex-wrap:wrap;gap:8px}.banner{padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--muted);font-size:.74rem}
+.atom{height:520px;position:relative;display:grid;place-items:center}.core{width:185px;height:185px;border-radius:50%;display:grid;place-items:center;position:relative;z-index:5;
+background:radial-gradient(circle at 35% 25%,#402177,#121521 58%,#080a10);border:1px solid rgba(147,87,255,.55);box-shadow:0 0 55px rgba(147,87,255,.35),inset 0 0 48px rgba(255,255,255,.06)}
+.core span{font-size:4.4rem;filter:drop-shadow(0 0 22px rgba(43,231,255,.72));animation:float 3.2s ease-in-out infinite}.orbit{position:absolute;border:1px solid rgba(255,255,255,.13);border-radius:50%}
+.o1{width:500px;height:240px;transform:rotate(-18deg);animation:spin1 80s linear infinite}.o2{width:500px;height:240px;transform:rotate(58deg);animation:spin2 100s linear infinite}.o3{width:420px;height:290px;transform:rotate(28deg);border-color:rgba(43,231,255,.28);animation:spin1 115s linear infinite}
+.orbLabel{position:absolute;padding:6px 9px;border:1px solid var(--line);background:var(--panel);border-radius:999px;font-size:.62rem;font-weight:900;box-shadow:0 10px 30px rgba(0,0,0,.24)}
+.l1{top:10%;left:14%;color:var(--cyan)}.l2{top:7%;right:12%;color:var(--orange)}.l3{top:31%;left:0;color:var(--purple)}.l4{top:30%;right:0;color:var(--green)}.l5{bottom:21%;left:5%;color:var(--pink)}.l6{bottom:16%;right:5%;color:var(--cyan)}.l7{bottom:5%;left:27%;color:var(--orange)}.l8{bottom:7%;right:24%;color:var(--purple)}.l9{top:17%;right:31%;color:var(--yellow)}.l10{bottom:29%;left:32%;color:#92b6ff}.l11{top:11%;left:44%;color:#ff7aca}.l12{top:48%;right:28%;color:#7af2bd}
+
+.section{padding:90px 0 20px}.head{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:30px}.head h2{font-size:clamp(2.4rem,4.3vw,4rem);line-height:1;letter-spacing:-2.3px;margin:8px 0}.head p{max-width:520px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{padding:21px;border:1px solid var(--line);border-radius:17px;background:var(--panel);box-shadow:0 20px 70px rgba(0,0,0,.24);min-height:225px}.card .ic{font-size:1.9rem;margin-bottom:14px}.card h3{margin:0 0 6px}.card p{color:var(--muted);font-size:.83rem}.card .btn{margin-top:11px;font-size:.74rem}
+
+.services{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.service{padding:22px;border:1px solid var(--line);border-radius:17px;background:var(--panel);min-height:255px}.service .price{font-weight:900;margin-top:14px}.service small,.note{color:var(--muted);font-size:.7rem}.print{margin-top:16px;padding:24px;border:1px solid var(--line);border-radius:17px;background:linear-gradient(120deg,rgba(147,87,255,.13),rgba(255,255,255,.02))}
+
+.about{display:grid;grid-template-columns:1fr 1fr;gap:45px;padding:40px;border:1px solid var(--line);border-radius:21px;background:linear-gradient(120deg,rgba(147,87,255,.12),rgba(255,255,255,.02))}
+.about h2{font-size:clamp(2.8rem,5vw,4.7rem);line-height:.97;letter-spacing:-3px}.about p{color:var(--muted)}.pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}.pill{padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.03);font-size:.72rem;font-weight:800}
+
+.lab{margin-top:65px;padding-bottom:60px}.labHeader{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:20px}.labHeader h2{font-size:clamp(2.3rem,4.2vw,3.8rem);line-height:1;margin:7px 0}.labHeader p{color:var(--muted);max-width:520px}
+.labGrid{display:grid;grid-template-columns:1.35fr .65fr;gap:16px}.labCard{padding:20px;border:1px solid var(--line);border-radius:18px;background:var(--panel);box-shadow:var(--shadow)}
+.controlGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:14px}.ctrl{padding:11px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.025)}.ctrl label{display:flex;justify-content:space-between;font-size:.72rem;font-weight:800}.ctrl input,.ctrl select{width:100%;margin-top:8px;accent-color:var(--purple);background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px}
+.canvasWrap{position:relative;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0b0e15}.canvasWrap canvas{display:block;width:100%;height:auto}
+.labActions{display:flex;gap:8px;margin-top:10px}.labActions button{border:1px solid var(--line);border-radius:10px;padding:10px 13px;background:rgba(255,255,255,.04);color:var(--text);font-weight:900}
+.labStats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:10px}.statBox{padding:11px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid var(--line)}.statBox small{display:block;color:var(--muted);font-size:.68rem}.statBox b{display:block;margin-top:3px}
+.status{padding:15px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.025);margin-bottom:12px}.status h3{margin:0 0 6px;font-size:1rem}.status p{margin:0;color:var(--muted);font-size:.8rem;line-height:1.7}.good{color:var(--green)}.warn{color:var(--orange)}.bad{color:var(--red)}
+.capVisual{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:13px}.capGauge{min-height:150px;border:1px solid var(--line);border-radius:13px;display:grid;place-items:center;background:rgba(255,255,255,.025);position:relative;overflow:hidden}.capBody{width:70px;height:105px;border-radius:9px;border:3px solid #dfe6ef;position:relative;background:linear-gradient(90deg,#202734,#56657b,#202734)}.capBody:before{content:"+";position:absolute;left:8px;top:4px;color:var(--red);font-weight:900;font-size:22px}.capBody:after{content:"";position:absolute;left:7px;right:7px;bottom:10px;height:50%;background:linear-gradient(to top,rgba(43,231,255,.85),rgba(43,231,255,.08));border-radius:5px}.flame{position:absolute;opacity:0;font-size:3rem;filter:drop-shadow(0 0 18px rgba(255,100,30,.7))}.fire .capBody{animation:shake .12s linear infinite}.fire .flame{opacity:1;animation:flame .33s ease-in-out infinite alternate}.capInfo{font-size:.78rem;color:var(--muted)}.capInfo b{color:var(--text)}
+.trade{margin-top:16px}.tradeChoice{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.tradeChoice button{padding:15px 9px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text)}.tradeChoice button.active.fast{border-color:var(--cyan);background:rgba(43,231,255,.08)}.tradeChoice button.active.cheap{border-color:var(--green);background:rgba(34,229,154,.08)}.tradeChoice button.active.good{border-color:var(--orange);background:rgba(255,156,44,.08)}
+.meters{margin-top:12px;display:grid;gap:8px}.meterRow{display:grid;grid-template-columns:48px 1fr 36px;gap:8px;align-items:center;font-size:.72rem}.meter{height:8px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}.meter i{display:block;height:100%;width:50%;border-radius:99px;background:linear-gradient(90deg,var(--purple),var(--cyan));transition:.3s}.meterRow:nth-child(2) .meter i{background:linear-gradient(90deg,var(--green),#70ffc2)}.meterRow:nth-child(3) .meter i{background:linear-gradient(90deg,var(--orange),#ffd86f)}
+.result{margin-top:11px;padding:12px;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:.79rem}.result b{color:var(--text)}
+
+.contact{margin:60px 0 65px;padding:35px;border:1px solid rgba(147,87,255,.35);border-radius:21px;background:radial-gradient(circle at 15% 15%,rgba(147,87,255,.2),transparent 30%),var(--panel)}
+.contactGrid{display:flex;justify-content:space-between;align-items:center;gap:20px}.contact h2{font-size:clamp(2.5rem,4.5vw,4rem);line-height:.98;letter-spacing:-2.4px}.contact p{color:var(--muted)}.wa{display:flex;align-items:center;gap:11px;min-width:350px;padding:15px 16px;border-radius:13px;border:1px solid rgba(34,229,154,.26);background:rgba(34,229,154,.055)}.waIcon{width:42px;height:42px;display:grid;place-items:center;border-radius:11px;background:#19b874;color:#05261b;font-weight:900}.wa small{display:block;color:var(--muted)}.wa strong{font-size:.9rem}.wa b{margin-left:auto}
+
+.modal{position:fixed;inset:0;z-index:200;display:none;place-items:center;padding:20px}.modal.open{display:grid}.backdrop{position:absolute;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(7px)}.modalCard{position:relative;z-index:2;width:min(590px,100%);padding:29px;border-radius:19px;background:var(--bg);border:1px solid rgba(147,87,255,.45);box-shadow:0 30px 120px rgba(0,0,0,.65)}.modalClose{position:absolute;right:13px;top:8px;border:0;background:none;color:var(--text);font-size:30px}.modalCard h2{font-size:2.1rem;line-height:1;margin:9px 0}.modalCard p{color:var(--muted)}
+
+@keyframes float{50%{transform:translateY(-10px) rotate(3deg)}}@keyframes spin1{to{transform:rotate(-18deg) rotate(360deg)}}@keyframes spin2{to{transform:rotate(58deg) rotate(-360deg)}}@keyframes shake{from{transform:rotate(-2deg)}to{transform:rotate(2deg)}}@keyframes flame{from{transform:scale(.9) rotate(-3deg)}to{transform:scale(1.08) rotate(4deg)}}
+
+@media(max-width:1100px){.grid{grid-template-columns:repeat(2,1fr)}.services{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}.atom{order:-1;height:430px}.labGrid{grid-template-columns:1fr}}
+@media(max-width:760px){
+  .wrap{width:min(94vw,700px)}.header{min-height:68px}.menu{display:block}.nav{display:none;position:absolute;left:0;right:0;top:68px;padding:12px 6%;flex-direction:column;align-items:stretch;background:var(--bg);border-bottom:1px solid var(--line)}.nav.open{display:flex}.nav a{padding:11px}.control select{display:none}
+  .hero{text-align:center;padding-top:38px}.hero h1{font-size:clamp(3.2rem,16vw,5.1rem);letter-spacing:-3px}.actions{justify-content:center}.banners{justify-content:center}.atom{height:320px}.core{width:150px;height:150px}.core span{font-size:3.3rem}.o1{width:350px;height:165px}.o2{width:355px;height:160px}.o3{width:310px;height:205px}.orbLabel{font-size:.56rem;padding:5px 7px}.l1{top:6%;left:9%}.l2{top:5%;right:8%}.l3{top:30%;left:0}.l4{top:28%;right:0}.l5{bottom:18%;left:2%}.l6{bottom:14%;right:2%}.l7{bottom:2%;left:21%}.l8{bottom:3%;right:18%}.l9{top:18%;right:28%}.l10{bottom:26%;left:28%}.l11{top:9%;left:40%}.l12{top:45%;right:20%}
+  .head{display:block}.head p{margin-top:13px}.grid,.services{grid-template-columns:1fr}.about{grid-template-columns:1fr;padding:28px}.controlGrid{grid-template-columns:1fr 1fr}.labStats{grid-template-columns:1fr 1fr}.contactGrid{display:block}.wa{min-width:0;margin-top:18px}
+}
+@media(max-width:460px){.controlGrid{grid-template-columns:1fr}.tradeChoice{grid-template-columns:1fr}.labStats{grid-template-columns:1fr}.projectMedia{height:100px}}
+</style>
+<style>
+@media(max-width:760px){
+  .header{padding:0 3%;gap:4px}
+  .controls{display:flex!important;gap:4px;flex-shrink:0}
+  .control{display:block!important;min-width:40px;height:36px;padding:6px 7px}
+  #theme{width:40px}#lang{width:48px}
+  .menu{display:block!important}
+  .tagline{display:none}
+}
+@media(max-width:430px){
+  .brand b{font-size:.78rem}
+  .control{font-size:.72rem}
+}
+</style>
+</head>
+<body>
+<header class="header wrap">
+  <a href="#home" class="brand">
+    <svg class="logoMark" viewBox="0 0 64 64"><circle cx="32" cy="32" r="8" fill="var(--text)"/><ellipse cx="32" cy="32" rx="28" ry="10" fill="none" stroke="var(--text)" stroke-width="3"/><ellipse cx="32" cy="32" rx="10" ry="28" fill="none" stroke="var(--cyan)" stroke-width="3" transform="rotate(32 32 32)"/><path d="M39 10 28 29h7L25 54l18-23h-8Z" fill="var(--orange)"/></svg>
+    <b>FARIS<em>TECH</em><small class="tagline">The only limitation is your imagination.</small></b>
+  </a>
+  <nav class="nav">
+    <a href="#home" class="active">Home</a><a href="#projects">Projects</a><a href="#services">What I Make</a><a href="#about">About</a><a href="#lab">Play & Learn</a><a href="#contact">Contact</a>
+  </nav>
+  <div class="controls">
+    <select id="theme" class="control"><option value="dark">🌙</option><option value="light">☀️</option><option value="caramel">🍮</option></select>
+    <select id="lang" class="control"><option value="en">EN</option><option value="ar">عربي</option></select>
+    <button id="menuBtn" class="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main class="wrap">
+<section id="home" class="hero">
+  <div>
+    <div class="eyebrow">MAKER • ELECTRONICS • 3D DESIGNING</div>
+    <h1>Build something<br><span class="gradient">awesome.</span></h1>
+    <p>I turn ideas into 3D models, PCB designs, electronics and real working projects. Designed for makers, inventors and curious people.</p>
+    <div class="actions"><a class="btn primary" href="#projects">Explore Projects ↗</a><a class="btn" href="#contact">Work With Me</a></div>
+    <div class="banners"><span class="banner">💸 Cheap starting prices</span><span class="banner">⚡ Fast learner</span><span class="banner">👁️ Visual learner</span><span class="banner">🎓 School friendly</span></div>
+  </div>
+  <div class="atom">
+    <div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div><div class="core"><span>⚡</span></div>
+    <span class="orbLabel l1">3D</span><span class="orbLabel l2">PCB</span><span class="orbLabel l3">ESP32</span><span class="orbLabel l4">Arduino</span>
+    <span class="orbLabel l5">Sensors</span><span class="orbLabel l6">Motors</span><span class="orbLabel l7">Displays</span><span class="orbLabel l8">RFID</span>
+    <span class="orbLabel l9">LEDs</span><span class="orbLabel l10">Servos</span><span class="orbLabel l11">IoT</span><span class="orbLabel l12">Robotics</span>
+  </div>
+</section>
+
+<section id="projects" class="section">
+  <div class="head"><div><div class="eyebrow">⚡ PROJECT LAB</div><h2>Projects I'm building</h2></div><p>From a simple idea to a finished prototype — this is where the experiments happen.</p></div>
+  <div class="grid" id="projectsGrid"></div>
+</section>
+
+<section id="services" class="section">
+  <div class="head"><div><div class="eyebrow">WHAT I MAKE</div><h2>Ideas → design → prototype</h2></div><p>Technology made understandable, useful and fun.</p></div>
+  <div class="services">
+<article class="service"><div style="font-size:2rem;color:var(--purple)">◇</div><h3>3D Design</h3><p>Custom parts, cases, brackets, school projects and printable real-life objects.</p><div class="price">From 10 SAR <small>/ simple model</small></div><button class="btn primary ask" data-service="3D model">Ask to make a 3D model</button></article>
+<article class="service"><div style="font-size:2rem;color:var(--cyan)">▤</div><h3>PCB Design</h3><p>One-layer boards through more complex multi-layer PCB designs.</p><div class="price">From 15 SAR <small>/ 1 layer</small></div><button class="btn primary ask" data-service="PCB design">Ask to design a PCB</button></article>
+<article class="service"><div style="font-size:2rem;color:var(--pink)">⌘</div><h3>Electronics</h3><p>ESP32, Arduino, sensors, displays, RFID, LEDs, motors, relays and prototypes.</p><div class="price">From 20 SAR <small>/ simple build</small></div><button class="btn primary ask" data-service="electronics project">Ask about electronics</button></article>
+<article class="service"><div style="font-size:2rem;color:var(--orange)">✦</div><h3>Robotics</h3><p>Servos, motors, sensors, control systems and robot mechanisms.</p><div class="price">From 50 SAR <small>/ simple build</small></div><button class="btn primary ask" data-service="robotics project">Ask about robotics</button></article>
+<article class="service"><div style="font-size:2rem;color:var(--green)">◫</div><h3>B2B / Business Builds</h3><p>Prototypes, custom maker solutions, small-batch work and practical business ideas.</p><div class="price">Quote <small>/ project</small></div><button class="btn primary ask" data-service="B2B / business build">Start a B2B idea</button></article>
+<article class="service"><div style="font-size:2rem;color:var(--cyan)">⌘</div><h3>Website Making</h3><p>Responsive websites for portfolios, school projects and small businesses.</p><div class="price">From 75 SAR <small>/ simple website</small></div><button class="btn primary ask" data-service="website">Ask for a website</button></article>
+<article class="service"><div style="font-size:2rem;color:var(--purple)">⚙</div><h3>Dashboards & IoT</h3><p>Sensor dashboards, control panels, data displays and connected prototypes.</p><div class="price">From 40 SAR <small>/ simple dashboard</small></div><button class="btn primary ask" data-service="dashboard / IoT project">Ask about a dashboard</button></article>
+<article class="service"><div style="font-size:2rem;color:var(--orange)">✦</div><h3>Prototyping</h3><p>Plan, design, build, test and improve an idea into a working prototype.</p><div class="price">Quote <small>/ project</small></div><button class="btn primary ask" data-service="prototype">Build a prototype</button></article>
+</div>
+  <div class="print"><h3>🖨️ 3D Printing — Bambu Lab A1</h3><p>I can print your model in real life. Send a picture, STL, sketch or idea. Pickup can be arranged locally; shipping costs extra.</p><button class="btn primary ask" data-service="3D printing">Ask for a 3D print on WhatsApp ↗</button></div>
+</section>
+
+<section id="about" class="section">
+  <div class="about"><div><div class="eyebrow">ABOUT FARIS</div><h2>Made by a maker,<br><span class="gradient">for makers.</span></h2></div>
+  <div><p>I enjoy building simple 3D models, PCB projects and electronic experiments. I learn visually and by doing. I'm a fast learner, and I can learn many new skills in under a week.</p><div class="pills"><span class="pill">Tinkercad</span><span class="pill">Shapr3D</span><span class="pill">ESP32</span><span class="pill">Arduino</span><span class="pill">Robotics</span><span class="pill">Fast Learner</span></div></div></div>
+</section>
+
+<section id="lab" class="lab section">
+  <div class="labHeader"><div><div class="eyebrow">🎮 PLAY & LEARN</div><h2>Build & test a real-style circuit</h2></div><p>This is the original circuit game rebuilt as the main simulator — visible, interactive, and integrated into the website.</p></div>
+  <div class="labGrid">
+    <article class="labCard">
+      <h3>1. Play with Circuits ⚡</h3>
+      <p style="color:var(--muted)">Change the battery, resistor, LED, capacitor and capacitor rating. Watch the electrons, current, LED brightness and capacitor charge change.</p>
+      <div class="controlGrid">
+        <div class="ctrl"><label>Battery <span id="vOut">9.0 V</span></label><input id="voltage" type="range" min="0" max="24" step=".1" value="9"></div>
+        <div class="ctrl"><label>Resistor <span id="rOut">1000 Ω</span></label><input id="resistance" type="range" min="10" max="5000" step="10" value="1000"></div>
+        <div class="ctrl"><label>LED Vf <span id="vfOut">2.0 V</span></label><input id="vf" type="range" min="1.5" max="3.5" step=".1" value="2"></div>
+        <div class="ctrl"><label>LED max <span id="maxOut">20 mA</span></label><input id="maxCurrent" type="range" min="5" max="50" step="1" value="20"></div>
+        <div class="ctrl"><label>Capacitance <span id="capOut">100 µF</span></label><input id="capacitance" type="range" min="10" max="1000" step="10" value="100"></div>
+        <div class="ctrl"><label>Cap rating <span id="capRatingOut">16 V</span></label><select id="capRating"><option>6.3</option><option>10</option><option selected>16</option><option>25</option><option>35</option></select></div>
+        <div class="ctrl"><label>LED color</label><select id="ledColor"><option value="#2be7ff">Cyan</option><option value="#ff4fbd">Pink</option><option value="#ff4d5f">Red</option><option value="#65ff73">Green</option><option value="#ffd34e">Yellow</option><option value="#9a6bff">Purple</option></select></div>
+        <div class="ctrl"><label>Mode <span>Interactive</span></label><select id="demoMode"><option value="normal">Normal circuit</option><option value="capacitor">Capacitor focus</option></select></div>
+        <div class="ctrl"><label>Electron speed <span id="speedOut">1.0×</span></label><input id="electronSpeed" type="range" min="0.2" max="4" step="0.1" value="1"></div>
+      </div>
+      <div class="canvasWrap"><canvas id="circuitCanvas" width="1100" height="570"></canvas></div>
+      <div class="labActions"><button id="pauseBtn">⏸ Pause electrons</button><button id="resetBtn">↻ Reset</button></div>
+      <div class="labStats">
+        <div class="statBox"><small>Current</small><b><span id="iOut">7.00</span> mA</b></div>
+        <div class="statBox"><small>LED brightness</small><b><span id="brightnessOut">35</span>%</b></div>
+        <div class="statBox"><small>Capacitor voltage</small><b><span id="capVoltageOut">0.00</span> V</b></div>
+      </div>
+    </article>
+
+    <aside class="labCard">
+      <div id="circuitStatus" class="status"><h3 class="good">Status: Good ✅</h3><p>Safe current. LED is on and electrons are moving.</p></div>
+      <div id="capStatus" class="status"><h3 class="good">Capacitor: Charging</h3><p>Polarized capacitor connected with a positive terminal toward the positive side of the circuit.</p></div>
+
+      <div id="capVisual" class="capVisual">
+        <div class="capGauge"><div class="capBody"></div><div class="flame">🔥</div></div>
+        <div class="capInfo"><p><b>Polarized capacitor</b></p><p>Rating: <b><span id="capRatingInfo">16</span> V</b></p><p>Voltage: <b><span id="capInfoV">0.00</span> V</b></p><p>Overvoltage triggers a simulated failure effect.</p></div>
+      </div>
+
+      <div class="trade">
+        <h3>2. Fast • Cheap • Good ⚖️</h3>
+        <p style="color:var(--muted);font-size:.82rem">Choose one main priority. The other two become harder to maximize.</p>
+        <div class="tradeChoice">
+          <button class="tradeBtn active fast" data-choice="fast"><b>⚡ FAST</b><small>Finish sooner</small></button>
+          <button class="tradeBtn cheap" data-choice="cheap"><b>💰 CHEAP</b><small>Spend less</small></button>
+          <button class="tradeBtn good" data-choice="good"><b>⭐ GOOD</b><small>Best quality</small></button>
+        </div>
+        <div class="meters">
+          <div class="meterRow"><span>Fast</span><div class="meter"><i id="mFast"></i></div><b id="mFastText">90%</b></div>
+          <div class="meterRow"><span>Cheap</span><div class="meter"><i id="mCheap"></i></div><b id="mCheapText">45%</b></div>
+          <div class="meterRow"><span>Good</span><div class="meter"><i id="mGood"></i></div><b id="mGoodText">60%</b></div>
+        </div>
+        <div id="tradeResult" class="result"><b>Result:</b> Fast build selected. It can be delivered sooner, but may cost more.</div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section id="contact" class="contact"><div class="contactGrid"><div><div class="eyebrow">LET'S BUILD</div><h2>Have an idea?<br><span class="gradient">Let's make it real.</span></h2><p>Tell me what you want to make and we can talk about the design, price and next step.</p></div>
+<a class="wa" id="waLink" target="_blank" rel="noopener"><span class="waIcon">✆</span><span><small>WhatsApp</small><strong>050-934-7473</strong></span><b>↗</b></a></div></section>
+</main>
+
+<footer class="wrap" style="padding:24px 0 35px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:var(--muted);font-size:.8rem"><b style="color:var(--text)">FARIS<em style="font-style:normal;color:var(--orange)">TECH</em></b><span>Build • Design • Invent</span><span>© <span id="year"></span></span></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+document.documentElement.dataset.theme=localStorage.getItem("ft-theme")||"dark";
+$("theme").value=document.documentElement.dataset.theme;
+$("theme").onchange=e=>{document.documentElement.dataset.theme=e.target.value;localStorage.setItem("ft-theme",e.target.value)};
+$("menuBtn").onclick=()=>document.querySelector(".nav").classList.toggle("open");
+$("lang").onchange=e=>{
+  if(e.target.value==="ar"){document.documentElement.dir="rtl";document.querySelector(".tagline").textContent="الحد الوحيد هو خيالك.";document.querySelector("html").lang="ar"}
+  else{document.documentElement.dir="ltr";document.querySelector(".tagline").textContent="The only limitation is your imagination.";document.querySelector("html").lang="en"}
+};
+const sections=[...document.querySelectorAll("main section[id]")],navs=[...document.querySelectorAll(".nav a")];
+const activeObserver=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){
+    navs.forEach(n=>n.classList.remove("active"));
+    document.querySelector(`.nav a[href="#${e.target.id}"]`)?.classList.add("active");
+  }
+}),{rootMargin:"-35% 0px -55% 0px"});
+sections.forEach(s=>activeObserver.observe(s));
+
+const projectData=[
+["3D Models","3D","◇","Custom 3D models, printable parts and real-life objects."],
+["PCB Design","PCB","▤","Simple boards to more complex multi-layer PCB designs."],
+["ESP32","ESP","⌁","Sensors, dashboards, IoT and microcontroller experiments."],
+["Arduino","Arduino","A","Arduino controllers, LEDs, motors and school projects."],
+["Sensors","Electronics","⌁","Distance, temperature, motion and other sensor builds."],
+["Robotics","Robotics","◈","Servos, motors, sensors and simple robots."],
+["Displays","Electronics","▣","LCD, OLED, TFT and user-interface experiments."],
+["RFID","Electronics","◎","RFID reader/writer experiments and access ideas."]
+];
+$("projectsGrid").innerHTML=projectData.map((p,i)=>`<article class="card"><div class="ic gradient">${p[2]}</div><h3>${p[0]}</h3><p>${p[3]}</p><button class="btn primary projectAsk" data-name="${p[0]}">Ask about ${p[0]}</button></article>`).join("");
+
+function wa(text){return "https://wa.me/966509347473?text="+encodeURIComponent(text)}
+document.querySelectorAll(".ask,.projectAsk").forEach(b=>b.onclick=()=>window.open(wa(`Hi FarisTech! I want to ask about ${b.dataset.service||b.dataset.name||"a project"}. My idea is: `),"_blank"));
+$("waLink").href=wa("Hi FarisTech! I have an idea for a project.");
+
+const cv=$("circuitCanvas"),ctx=cv.getContext("2d");
+const voltage=$("voltage"),res=$("resistance"),vf=$("vf"),maxCurrent=$("maxCurrent"),capacitance=$("capacitance"),capRating=$("capRating"),ledColor=$("ledColor"),electronSpeed=$("electronSpeed");
+const electrons=Array.from({length:42},(_,i)=>i/42);
+let running=true,capV=0,failed=false,last=performance.now();
+
+function model(){
+  const V=+voltage.value,R=+res.value,Vf=+vf.value,Imax=+maxCurrent.value;
+  const ideal=Math.max(0,(V-Vf)/R*1000),current=Math.min(idealmA=ideal,Imax),brightness=V<=Vf?0:Math.min(100,current/Imax*100);
+  const C=+capacitance.value/1e6;
+  const tau=Math.max(.03,R*C);
+  return {V,R,Vf,Imax,ideal,current,brightness,C,tau,rating:+capRating.value};
+}
+function updateLabels(m){
+  $("vOut").textContent=m.V.toFixed(1)+" V";$("rOut").textContent=m.R.toFixed(0)+" Ω";$("vfOut").textContent=m.Vf.toFixed(1)+" V";$("maxOut").textContent=m.Imax.toFixed(0)+" mA";
+  $("capOut").textContent=(m.C*1e6).toFixed(0)+" µF";$("capRatingOut").textContent=m.rating+" V";$("capRatingInfo").textContent=m.rating;
+  $("iOut").textContent=m.current.toFixed(2);$("brightnessOut").textContent=m.brightness.toFixed(0);$("capVoltageOut").textContent=capV.toFixed(2);$("capInfoV").textContent=capV.toFixed(2);$("speedOut").textContent=(+electronSpeed.value).toFixed(1)+"×";
+}
+function path(u){
+  u=((u%1)+1)%1;const x1=125,x2=975,y1=150,y2=430,top=x2-x1,side=y2-y1,per=2*(top+side);let d=u*per;
+  if(d<top)return{x:x1+d,y:y2};d-=top;if(d<side)return{x:x2,y:y2-d};d-=side;if(d<top)return{x:x2-d,y:y1};d-=top;return{x:x1,y:y1+d};
+}
+function drawComponentLabel(x,y,t,color){ctx.fillStyle=color;ctx.font="700 16px Inter,Arial";ctx.textAlign="center";ctx.fillText(t,x,y)}
+function tick(now){
+  const dt=Math.min(.05,(now-last)/1000);last=now;const m=model();
+
+  if(running){
+    const target=m.V;
+    const k=Math.min(1,dt/(m.tau+0.02));
+    capV += (target-capV)*k;
+    const speed=Math.max(.0002,m.current/10000)*Math.max(.05,+electronSpeed.value);
+    for(let i=0;i<electrons.length;i++) electrons[i]=(electrons[i]+dt*speed)%1;
+  }
+
+  const reverse=false; // educational model uses a fixed polarized orientation
+  failed=capV>m.rating || m.V>m.rating+1;
+
+  ctx.clearRect(0,0,cv.width,cv.height);
+  ctx.fillStyle="#0b0e15";ctx.fillRect(0,0,cv.width,cv.height);
+
+  // Wires
+  ctx.strokeStyle="#798495";ctx.lineWidth=8;ctx.lineCap="round";ctx.beginPath();
+  ctx.moveTo(125,150);ctx.lineTo(975,150);ctx.lineTo(975,430);ctx.lineTo(125,430);ctx.lineTo(125,150);ctx.stroke();
+
+  // Battery
+  ctx.strokeStyle="#f2f4f8";ctx.lineWidth=8;ctx.beginPath();ctx.moveTo(85,250);ctx.lineTo(165,250);ctx.moveTo(100,305);ctx.lineTo(150,305);ctx.stroke();
+  drawComponentLabel(125,218,"BATTERY",varOrange());drawComponentLabel(125,340,m.V.toFixed(1)+" V", "#f4f6fb");
+  ctx.fillStyle=varOrange();ctx.font="bold 28px Arial";ctx.fillText("+",88,247);ctx.fillStyle="#f4f6fb";ctx.fillText("−",92,312);
+
+  // Resistor
+  ctx.strokeStyle="#edc06d";ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(380,150);ctx.lineTo(415,150);ctx.lineTo(430,130);ctx.lineTo(458,170);ctx.lineTo(486,130);ctx.lineTo(514,170);ctx.lineTo(542,130);ctx.lineTo(557,150);ctx.lineTo(592,150);ctx.stroke();
+  drawComponentLabel(486,114,"RESISTOR", "#edc06d");drawComponentLabel(486,194,m.R.toFixed(0)+" Ω", "#edc06d");
+
+  // LED
+  const glow=Math.max(0,m.brightness);ctx.beginPath();ctx.arc(975,290,29,0,Math.PI*2);ctx.fillStyle=glow?"#ffd34e":"#303642";ctx.shadowBlur=glow?12+glow*.35:0;ctx.shadowColor=ledColor.value;ctx.fill();ctx.shadowBlur=0;ctx.strokeStyle="#fff";ctx.lineWidth=3;ctx.stroke();
+  ctx.strokeStyle="#fff";ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(952,263);ctx.lineTo(998,317);ctx.moveTo(952,317);ctx.lineTo(998,263);ctx.stroke();
+  drawComponentLabel(975,355,"LED",ledColor.value);drawComponentLabel(975,378,m.brightness.toFixed(0)+"%",ledColor.value);
+
+  // Capacitor symbol on lower wire branch
+  ctx.strokeStyle="#e8edf5";ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(515,430);ctx.lineTo(515,395);ctx.moveTo(555,430);ctx.lineTo(555,395);ctx.stroke();
+  ctx.strokeStyle="#7f8ba0";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(494,390);ctx.lineTo(576,390);ctx.moveTo(494,415);ctx.lineTo(576,415);ctx.stroke();
+  ctx.fillStyle=varRed();ctx.font="bold 24px Arial";ctx.fillText("+",480,393);ctx.fillStyle="#d6dbe4";ctx.fillText("−",480,420);
+  drawComponentLabel(535,470,"POLARIZED CAP", "#dfe7f1");drawComponentLabel(535,493,capV.toFixed(2)+" V / "+m.rating+" V", failed?varRed():varCyan());
+
+  // electron particles
+  for(const e of electrons){const p=path(e);ctx.beginPath();ctx.arc(p.x,p.y,6,0,Math.PI*2);ctx.fillStyle="#71d8ff";ctx.shadowBlur=13;ctx.shadowColor="#71d8ff";ctx.fill();ctx.shadowBlur=0}
+
+  // labels
+  ctx.fillStyle="#8fd3ff";ctx.font="700 15px Inter,Arial";ctx.textAlign="left";ctx.fillText("Electron flow →",140,525);
+
+  // status panels
+  const circuitStatus=$("circuitStatus"),capStatus=$("capStatus"),capVisual=$("capVisual");
+  if(m.V<=m.Vf){
+    circuitStatus.innerHTML=`<h3 class="warn">Status: LED OFF</h3><p>Not enough voltage to forward-bias the LED.</p>`;
+  }else if(m.ideal>m.Imax){
+    circuitStatus.innerHTML=`<h3 class="warn">Status: Current Limited ⚠️</h3><p>The selected resistor is too small for the requested current. The model limits the LED current.</p>`;
+  }else{
+    circuitStatus.innerHTML=`<h3 class="good">Status: Good ✅</h3><p>Current ${m.current.toFixed(2)} mA. LED brightness follows current.</p>`;
+  }
+  if(failed){
+    capStatus.innerHTML=`<h3 class="bad">Capacitor failure 🔥</h3><p>Voltage is above the selected capacitor rating. This is a simulated educational failure effect.</p>`;
+    capVisual.classList.add("fire");
+  }else{
+    capStatus.innerHTML=`<h3 class="good">Capacitor: Charging</h3><p>Polarized capacitor voltage is ${capV.toFixed(2)} V. Rating is ${m.rating} V.</p>`;
+    capVisual.classList.remove("fire");
+  }
+  updateLabels(m);
+  requestAnimationFrame(tick);
+}
+function varOrange(){return getComputedStyle(document.documentElement).getPropertyValue("--orange")}
+function varRed(){return getComputedStyle(document.documentElement).getPropertyValue("--red")}
+function varCyan(){return getComputedStyle(document.documentElement).getPropertyValue("--cyan")}
+
+[voltage,resistance,vf,maxCurrent,capacitance,capRating,ledColor,electronSpeed].forEach(x=>x.oninput=()=>{if(x===voltage && capV>+voltage.value)capV=+voltage.value});
+$("pauseBtn").onclick=()=>{running=!running;$("pauseBtn").textContent=running?"⏸ Pause electrons":"▶ Start electrons"};
+$("resetBtn").onclick=()=>{voltage.value=9;resistance.value=1000;vf.value=2;maxCurrent.value=20;capacitance.value=100;capRating.value=16;ledColor.value="#2be7ff";capV=0;running=true;$("pauseBtn").textContent="⏸ Pause electrons"};
+
+const tradeProfiles={
+ fast:[90,45,60,"Fast build selected. It can be delivered sooner, but may cost more and have fewer revisions."],
+ cheap:[45,90,55,"Cheap build selected. It saves money, but may take longer and use simpler materials or fewer revisions."],
+ good:[55,40,95,"Good selected. Quality is the priority, so expect more time and a higher price."]
+};
+function setTrade(c){
+  const p=tradeProfiles[c];document.querySelectorAll(".tradeBtn").forEach(b=>b.classList.remove("active"));document.querySelector(`.tradeBtn.${c}`).classList.add("active");
+  ["Fast","Cheap","Good"].forEach((n,i)=>{$("m"+n).style.width=p[i]+"%";$("m"+n+"Text").textContent=p[i]+"%"});
+  $("tradeResult").innerHTML="<b>Result:</b> "+p[3];
+}
+document.querySelectorAll(".tradeBtn").forEach(b=>b.onclick=()=>setTrade(b.dataset.choice));setTrade("fast");
+$("year").textContent=new Date().getFullYear();
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>

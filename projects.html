@@ -25,7 +25,7 @@ const cats=[...new Set(PROJECTS_DATA.map(p=>p.category).filter(Boolean))].sort()
 
 const themes=['dark','light','caramel','tech','matcha'];const themeIcons={dark:'🌙',light:'☀️',caramel:'🍮',tech:'◈',matcha:'🍵'};const themeNames={dark:'Dark',light:'Light',caramel:'🍮',tech:'Tech',matcha:'Matcha'};
 function applyThemeButton(){const th=document.documentElement.dataset.theme;document.getElementById('themeBtn').innerHTML=themeIcons[th]+' <span>'+themeNames[th]+'</span>'}
-document.documentElement.dataset.theme=localStorage.getItem('ft-theme')||'tech';applyThemeButton();document.getElementById('themeBtn').onclick=()=>{let th=document.documentElement.dataset.theme,n=themes[(themes.indexOf(th)+1)%themes.length];document.documentElement.dataset.theme=n;localStorage.setItem('ft-theme',n);applyThemeButton()};
+const themeQueryOverride=new URLSearchParams(location.search).get('theme');if(themes.includes(themeQueryOverride))localStorage.setItem('ft-theme',themeQueryOverride);document.documentElement.dataset.theme=localStorage.getItem('ft-theme')||'tech';applyThemeButton();document.getElementById('themeBtn').onclick=()=>{let th=document.documentElement.dataset.theme,n=themes[(themes.indexOf(th)+1)%themes.length];document.documentElement.dataset.theme=n;localStorage.setItem('ft-theme',n);applyThemeButton()};
 document.getElementById('menuBtn')?.addEventListener('click',()=>document.querySelector('.links')?.classList.toggle('open'));document.querySelectorAll('.links a').forEach(a=>a.onclick=()=>document.querySelector('.links')?.classList.remove('open'));
 
 

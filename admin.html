@@ -314,7 +314,7 @@ const sections=[...document.querySelectorAll('main section[id]')],navs=[...docum
 
 <script>
 (function(){
-const PASS_KEY='faristech_admin_password_hash_v3',OLD_PASS_KEY='faristech_admin_password_v2',AUTH_KEY='faristech_admin_auth_v2',INITIAL_PASS_HASH='a85a1421e885a64a166f1a171953c0c25091f39d747ffe0dbef8916d9a6cc0d8';
+const PASS_KEY='faristech_admin_password_hash_v4',OLD_PASS_KEY='faristech_admin_password_v2',AUTH_KEY='faristech_admin_auth_v3',INITIAL_PASS_HASH='558fc2e0168d89a5fb57e8ffe392443095c02913b985d44bb15930abfc2aaa20';
 async function hashPassword(v){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(v));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
 async function ensurePasswordHash(){if(localStorage.getItem(PASS_KEY))return;const old=localStorage.getItem(OLD_PASS_KEY);if(old){localStorage.setItem(PASS_KEY,await hashPassword(old));localStorage.removeItem(OLD_PASS_KEY)}else localStorage.setItem(PASS_KEY,INITIAL_PASS_HASH)}
 function showGate(){document.getElementById('adminGate').classList.remove('hidden')}function hideGate(){document.getElementById('adminGate').classList.add('hidden');document.querySelector('.adminBar').style.display='flex'}if(sessionStorage.getItem(AUTH_KEY)==='yes')hideGate();

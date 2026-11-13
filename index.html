@@ -322,11 +322,18 @@ const sections=[...document.querySelectorAll('main section[id]')],navs=[...docum
 
 <script>
 (function(){
-const PASS_KEY='faristech_admin_password_hash_v4',OLD_PASS_KEY='faristech_admin_password_v2',AUTH_KEY='faristech_admin_auth_v3',INITIAL_PASS_HASH='558fc2e0168d89a5fb57e8ffe392443095c02913b985d44bb15930abfc2aaa20';
-async function hashPassword(v){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(v));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
-async function ensurePasswordHash(){if(localStorage.getItem(PASS_KEY))return;const old=localStorage.getItem(OLD_PASS_KEY);if(old){localStorage.setItem(PASS_KEY,await hashPassword(old));localStorage.removeItem(OLD_PASS_KEY)}else localStorage.setItem(PASS_KEY,INITIAL_PASS_HASH)}
-function showGate(){document.getElementById('adminGate').classList.remove('hidden')}function hideGate(){document.getElementById('adminGate').classList.add('hidden');document.querySelector('.adminBar').style.display='flex'}if(sessionStorage.getItem(AUTH_KEY)==='yes')hideGate();
-ensurePasswordHash();document.getElementById('adminLogin').onclick=async()=>{await ensurePasswordHash();const ok=(await hashPassword(document.getElementById('adminPassword').value))===localStorage.getItem(PASS_KEY);if(ok){sessionStorage.setItem(AUTH_KEY,'yes');hideGate();document.getElementById('adminError').style.display='none';document.getElementById('adminPassword').value=''}else document.getElementById('adminError').style.display='block'};document.getElementById('adminPassword').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('adminLogin').click()});document.getElementById('adminLogout').onclick=()=>{sessionStorage.removeItem(AUTH_KEY);showGate()};
+const ADMIN_API='https://faristech-chat-api.makerlab.workers.dev',AUTH_KEY='faristech_site_admin_token_v1';
+let adminToken=sessionStorage.getItem(AUTH_KEY)||'';
+function showGate(){document.getElementById('adminGate').classList.remove('hidden');document.querySelector('.adminBar').style.display='none'}
+function hideGate(){document.getElementById('adminGate').classList.add('hidden');document.querySelector('.adminBar').style.display='flex'}
+async function adminRequest(path,method='GET',body){const r=await fetch(ADMIN_API+path,{method,headers:{'Content-Type':'application/json',...(adminToken?{Authorization:'Bearer '+adminToken}:{})},body:body?JSON.stringify(body):undefined});const d=await r.json();if(!r.ok)throw new Error(d.error||'Admin authentication failed');return d}
+async function verifySavedAdminSession(){if(!adminToken){showGate();return}try{await adminRequest('/admin/messages');hideGate()}catch{adminToken='';sessionStorage.removeItem(AUTH_KEY);showGate()}}
+async function loginAdmin(){const input=document.getElementById('adminPassword'),error=document.getElementById('adminError');try{const r=await fetch(ADMIN_API+'/auth/admin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:input.value})});const d=await r.json();if(!r.ok)throw new Error(d.error||'Wrong admin password.');adminToken=d.token;sessionStorage.setItem(AUTH_KEY,adminToken);input.value='';error.style.display='none';hideGate()}catch(e){error.textContent=e.message;error.style.display='block'}}
+document.getElementById('adminLogin').onclick=loginAdmin;
+document.getElementById('adminPassword').addEventListener('keydown',e=>{if(e.key==='Enter')loginAdmin()});
+document.getElementById('adminLogout').onclick=async()=>{try{await adminRequest('/logout','POST')}catch{}adminToken='';sessionStorage.removeItem(AUTH_KEY);showGate()};
+document.getElementById('changePassword').onclick=()=>window.open('https://warmachine999.github.io/faristech-lab/password-hash.html?target=ADMIN_PASSWORD_HASH','_blank','noopener');
+verifySavedAdminSession();
 let directEditing=false;
 function setDirectEditing(on){directEditing=on;document.body.classList.toggle('direct-editing',on);document.getElementById('toggleEditor').textContent=on?'✓ Finish selecting':'✎ Edit directly';const selectors=['#heroTitleA','#heroTitleB','#heroText','#aboutText','#contactText','#projectsGrid h3','#projectsGrid p','#servicesGrid h3','#servicesGrid p','#servicesGrid .price','#servicesGrid .ask','.print h3','.print p','.contact h2','.contact p'];document.querySelectorAll(selectors.join(',')).forEach(el=>{el.contentEditable=on?'true':'false';el.spellcheck=true});document.querySelectorAll('.ask,.projectAsk,.wa').forEach(el=>{if(on){el.dataset.oldPointer=el.style.pointerEvents||'';el.style.pointerEvents='none'}else el.style.pointerEvents=el.dataset.oldPointer||''})}
 document.getElementById('toggleEditor').onclick=()=>setDirectEditing(!directEditing);
